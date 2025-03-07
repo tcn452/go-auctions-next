@@ -3,8 +3,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { authentication, createDirectus, readMe, rest } from "@directus/sdk";
 import { CustomDirectusTypes } from "@/app/types/schema";
+import { securedClient } from "@/app/lib/directus";
 
-const directus = createDirectus<CustomDirectusTypes>(process.env.PUBLIC_API_URL as string).with(rest()).with(authentication());
+
 
 
 const handler = NextAuth({
@@ -20,7 +21,7 @@ const handler = NextAuth({
   
           try {
             // Attempt to authenticate using Directus SDK
-            const token = await directus
+            const token = await securedClient
               .login(email, password ).then()
               
             
@@ -33,7 +34,7 @@ const handler = NextAuth({
               //   name: user.first_name ? `${user.first_name} ${user.last_name}` : user.email,
               //   image: user.avatar || null,
               // };
-                const me = await directus.request(readMe({
+                const me = await securedClient.request(readMe({
                     fields: ["id", "first_name", "last_name", "avatar", "email"]
                 }))
               return {
