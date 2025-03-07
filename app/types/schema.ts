@@ -7,16 +7,16 @@ export type AssetSellers = {
     bid_amount?: number | null;
     date_created?: string | null;
     id: number;
-    user?: string | DirectusUsers | null;
-    vehicle_id?: number | Vehicles | null;
+    user?: (string & DirectusUsers) | null;
+    vehicle_id?: (number & Vehicles) | null;
   };
   
   export type DirectusAccess = {
     id: string;
-    policy: string | DirectusPolicies;
-    role?: string | DirectusRoles | null;
+    policy: string & DirectusPolicies;
+    role?: (string & DirectusRoles) | null;
     sort?: number | null;
-    user?: string | DirectusUsers | null;
+    user?: (string & DirectusUsers) | null;
   };
   
   export type DirectusActivity = {
@@ -26,9 +26,9 @@ export type AssetSellers = {
     ip?: string | null;
     item: string;
     origin?: string | null;
-    revisions: any[] | DirectusRevisions[];
+    revisions: any[] & DirectusRevisions[];
     timestamp: string;
-    user?: string | DirectusUsers | null;
+    user?: (string & DirectusUsers) | null;
     user_agent?: string | null;
   };
   
@@ -41,7 +41,7 @@ export type AssetSellers = {
     collection: string;
     color?: string | null;
     display_template?: string | null;
-    group?: string | DirectusCollections | null;
+    group?: (string & DirectusCollections) | null;
     hidden: boolean;
     icon?: string | null;
     item_duplication_fields?: unknown | null;
@@ -56,14 +56,14 @@ export type AssetSellers = {
   };
   
   export type DirectusComments = {
-    collection: string | DirectusCollections;
+    collection: string & DirectusCollections;
     comment: string;
     date_created?: string | null;
     date_updated?: string | null;
     id: string;
     item: string;
-    user_created?: string | DirectusUsers | null;
-    user_updated?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
+    user_updated?: (string & DirectusUsers) | null;
   };
   
   export type DirectusDashboards = {
@@ -73,8 +73,8 @@ export type AssetSellers = {
     id: string;
     name: string;
     note?: string | null;
-    panels: any[] | DirectusPanels[];
-    user_created?: string | DirectusUsers | null;
+    panels: any[] & DirectusPanels[];
+    user_created?: (string & DirectusUsers) | null;
   };
   
   export type DirectusExtensions = {
@@ -86,12 +86,12 @@ export type AssetSellers = {
   };
   
   export type DirectusFields = {
-    collection: string | DirectusCollections;
+    collection: string & DirectusCollections;
     conditions?: unknown | null;
     display?: string | null;
     display_options?: unknown | null;
     field: string;
-    group?: string | DirectusFields | null;
+    group?: (string & DirectusFields) | null;
     hidden: boolean;
     id: number;
     interface?: string | null;
@@ -118,12 +118,12 @@ export type AssetSellers = {
     filesize?: number | null;
     focal_point_x?: number | null;
     focal_point_y?: number | null;
-    folder?: string | DirectusFolders | null;
+    folder?: (string & DirectusFolders) | null;
     height?: number | null;
     id: string;
     location?: string | null;
     metadata?: unknown | null;
-    modified_by?: string | DirectusUsers | null;
+    modified_by?: (string & DirectusUsers) | null;
     modified_on: string;
     storage: string;
     tags?: unknown | null;
@@ -131,7 +131,7 @@ export type AssetSellers = {
     tus_data?: unknown | null;
     tus_id?: string | null;
     type?: string | null;
-    uploaded_by?: string | DirectusUsers | null;
+    uploaded_by?: (string & DirectusUsers) | null;
     uploaded_on?: string | null;
     width?: number | null;
   };
@@ -144,18 +144,18 @@ export type AssetSellers = {
     icon?: string | null;
     id: string;
     name: string;
-    operation?: string | DirectusOperations | null;
-    operations: any[] | DirectusOperations[];
+    operation?: (string & DirectusOperations) | null;
+    operations: any[] & DirectusOperations[];
     options?: unknown | null;
     status: string;
     trigger?: string | null;
-    user_created?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
   };
   
   export type DirectusFolders = {
     id: string;
     name: string;
-    parent?: string | DirectusFolders | null;
+    parent?: (string & DirectusFolders) | null;
   };
   
   export type DirectusMigrations = {
@@ -169,8 +169,8 @@ export type AssetSellers = {
     id: number;
     item?: string | null;
     message?: string | null;
-    recipient: string | DirectusUsers;
-    sender?: string | DirectusUsers | null;
+    recipient: string & DirectusUsers;
+    sender?: (string & DirectusUsers) | null;
     status?: string | null;
     subject: string;
     timestamp?: string | null;
@@ -178,22 +178,22 @@ export type AssetSellers = {
   
   export type DirectusOperations = {
     date_created?: string | null;
-    flow: string | DirectusFlows;
+    flow: string & DirectusFlows;
     id: string;
     key: string;
     name?: string | null;
     options?: unknown | null;
     position_x: number;
     position_y: number;
-    reject?: string | DirectusOperations | null;
-    resolve?: string | DirectusOperations | null;
+    reject?: (string & DirectusOperations) | null;
+    resolve?: (string & DirectusOperations) | null;
     type: string;
-    user_created?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
   };
   
   export type DirectusPanels = {
     color?: string | null;
-    dashboard: string | DirectusDashboards;
+    dashboard: string & DirectusDashboards;
     date_created?: string | null;
     height: number;
     icon?: string | null;
@@ -205,7 +205,7 @@ export type AssetSellers = {
     position_y: number;
     show_header: boolean;
     type: string;
-    user_created?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
     width: number;
   };
   
@@ -215,7 +215,7 @@ export type AssetSellers = {
     fields?: unknown | null;
     id: number;
     permissions?: unknown | null;
-    policy: string | DirectusPolicies;
+    policy: string & DirectusPolicies;
     presets?: unknown | null;
     validation?: unknown | null;
   };
@@ -229,9 +229,9 @@ export type AssetSellers = {
     id: string;
     ip_access?: unknown | null;
     name: string;
-    permissions: any[] | DirectusPermissions[];
-    roles: any[] | DirectusAccess[];
-    users: any[] | DirectusAccess[];
+    permissions: any[] & DirectusPermissions[];
+    roles: any[] & DirectusAccess[];
+    users: any[] & DirectusAccess[];
   };
   
   export type DirectusPresets = {
@@ -245,9 +245,9 @@ export type AssetSellers = {
     layout_options?: unknown | null;
     layout_query?: unknown | null;
     refresh_interval?: number | null;
-    role?: string | DirectusRoles | null;
+    role?: (string & DirectusRoles) | null;
     search?: string | null;
-    user?: string | DirectusUsers | null;
+    user?: (string & DirectusUsers) | null;
   };
   
   export type DirectusRelations = {
@@ -264,25 +264,25 @@ export type AssetSellers = {
   };
   
   export type DirectusRevisions = {
-    activity: number | DirectusActivity;
+    activity: number & DirectusActivity;
     collection: string;
     data?: unknown | null;
     delta?: unknown | null;
     id: number;
     item: string;
-    parent?: number | DirectusRevisions | null;
-    version?: string | DirectusVersions | null;
+    parent?: (number & DirectusRevisions) | null;
+    version?: (string & DirectusVersions) | null;
   };
   
   export type DirectusRoles = {
-    children: any[] | DirectusRoles[];
+    children: any[] & DirectusRoles[];
     description?: string | null;
     icon: string;
     id: string;
     name: string;
-    parent?: string | DirectusRoles | null;
-    policies: any[] | DirectusAccess[];
-    users: any[] | DirectusUsers[];
+    parent?: (string & DirectusRoles) | null;
+    policies: any[] & DirectusAccess[];
+    users: any[] & DirectusUsers[];
     users_group: string;
   };
   
@@ -291,9 +291,9 @@ export type AssetSellers = {
     ip?: string | null;
     next_token?: string | null;
     origin?: string | null;
-    share?: string | DirectusShares | null;
+    share?: (string & DirectusShares) | null;
     token: string;
-    user?: string | DirectusUsers | null;
+    user?: (string & DirectusUsers) | null;
     user_agent?: string | null;
   };
   
@@ -312,30 +312,30 @@ export type AssetSellers = {
     module_bar?: unknown | null;
     project_color: string;
     project_descriptor?: string | null;
-    project_logo?: string | DirectusFiles | null;
+    project_logo?: (string & DirectusFiles) | null;
     project_name: string;
     project_url?: string | null;
-    public_background?: string | DirectusFiles | null;
-    public_favicon?: string | DirectusFiles | null;
-    public_foreground?: string | DirectusFiles | null;
+    public_background?: (string & DirectusFiles) | null;
+    public_favicon?: (string & DirectusFiles) | null;
+    public_foreground?: (string & DirectusFiles) | null;
     public_note?: string | null;
     public_registration: boolean;
     public_registration_email_filter?: unknown | null;
-    public_registration_role?: string | DirectusRoles | null;
+    public_registration_role?: (string & DirectusRoles) | null;
     public_registration_verify_email: boolean;
     report_bug_url?: string | null;
     report_error_url?: string | null;
     report_feature_url?: string | null;
     storage_asset_presets?: unknown | null;
     storage_asset_transform?: string | null;
-    storage_default_folder?: string | DirectusFolders | null;
+    storage_default_folder?: (string & DirectusFolders) | null;
     theme_dark_overrides?: unknown | null;
     theme_light_overrides?: unknown | null;
     theming_group: string;
   };
   
   export type DirectusShares = {
-    collection: string | DirectusCollections;
+    collection: string & DirectusCollections;
     date_created?: string | null;
     date_end?: string | null;
     date_start?: string | null;
@@ -344,9 +344,9 @@ export type AssetSellers = {
     max_uses?: number | null;
     name?: string | null;
     password?: string | null;
-    role?: string | DirectusRoles | null;
+    role?: (string & DirectusRoles) | null;
     times_used?: number | null;
-    user_created?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
   };
   
   export type DirectusTranslations = {
@@ -359,7 +359,7 @@ export type AssetSellers = {
   export type DirectusUsers = {
     appearance?: string | null;
     auth_data?: unknown | null;
-    avatar?: string | DirectusFiles | null;
+    avatar?: (string & DirectusFiles) | null;
     description?: string | null;
     email?: string | null;
     email_notifications?: boolean | null;
@@ -372,9 +372,9 @@ export type AssetSellers = {
     last_page?: string | null;
     location?: string | null;
     password?: string | null;
-    policies: any[] | DirectusAccess[];
+    policies: any[] & DirectusAccess[];
     provider: string;
-    role?: string | DirectusRoles | null;
+    role?: (string & DirectusRoles) | null;
     status: string;
     tags?: unknown | null;
     tfa_secret?: string | null;
@@ -387,7 +387,7 @@ export type AssetSellers = {
   };
   
   export type DirectusVersions = {
-    collection: string | DirectusCollections;
+    collection: string & DirectusCollections;
     date_created?: string | null;
     date_updated?: string | null;
     delta?: unknown | null;
@@ -396,8 +396,8 @@ export type AssetSellers = {
     item: string;
     key: string;
     name?: string | null;
-    user_created?: string | DirectusUsers | null;
-    user_updated?: string | DirectusUsers | null;
+    user_created?: (string & DirectusUsers) | null;
+    user_updated?: (string & DirectusUsers) | null;
   };
   
   export type DirectusWebhooks = {
@@ -407,7 +407,7 @@ export type AssetSellers = {
     headers?: unknown | null;
     id: number;
     method: string;
-    migrated_flow?: string | DirectusFlows | null;
+    migrated_flow?: (string & DirectusFlows) | null;
     name: string;
     status: string;
     url: string;
@@ -415,23 +415,24 @@ export type AssetSellers = {
   };
   
   export type Lots = {
-    allowed_bidders: any[] | ProofOfPayments[];
+    allowed_bidders: any[] & ProofOfPayments[];
     auction_end?: string | null;
     auction_start?: string | null;
     auction_type?: string | null;
+    cover_image?: (string & DirectusFiles) | null;
     description?: string | null;
     id: number;
     name?: string | null;
     status: string;
-    vehicles?: number | Vehicles | null;
+    vehicles?: (number & Vehicles) | null;
   };
   
   export type ProofOfPayments = {
     id: number;
-    Lot?: number | Lots | null;
-    proof_of_payment?: string | DirectusFiles | null;
+    Lot?: (number & Lots) | null;
+    proof_of_payment?: (string & DirectusFiles) | null;
     status?: string | null;
-    User?: string | DirectusUsers | null;
+    User?: (string & DirectusUsers) | null;
   };
   
   export type Vehicles = {
@@ -440,75 +441,75 @@ export type AssetSellers = {
     Address?: string | null;
     admin?: number | null;
     assessor?: string | null;
-    Assessor_Report?: string | DirectusFiles | null;
-    asset_seller?: number | AssetSellers | null;
+    Assessor_Report?: (string & DirectusFiles) | null;
+    asset_seller?: (number & AssetSellers) | null;
     Auction_Details: string;
-    auction_images: any[] | VehiclesFiles[];
-    Back?: string | DirectusFiles | null;
-    bids: any[] | Bids[];
+    auction_images: any[] & VehiclesFiles[];
+    Back?: (string & DirectusFiles) | null;
+    bids: any[] & Bids[];
     body_checklist?: unknown | null;
-    Boot?: string | DirectusFiles | null;
+    Boot?: (string & DirectusFiles) | null;
     Branch?: string | null;
-    Buyer_Id?: string | DirectusFiles | null;
-    Cancellation_of_Sales?: string | DirectusFiles | null;
+    Buyer_Id?: (string & DirectusFiles) | null;
+    Cancellation_of_Sales?: (string & DirectusFiles) | null;
     cell?: string | null;
     Cell?: string | null;
-    Chassis?: string | DirectusFiles | null;
+    Chassis?: (string & DirectusFiles) | null;
     claim_no?: string | null;
     claims_clerk?: string | null;
     colour?: string | null;
     Company_Name?: string | null;
     Contact_Person?: string | null;
     current_highest_bid: number;
-    current_highest_bidder?: string | DirectusUsers | null;
+    current_highest_bidder?: (string & DirectusUsers) | null;
     date?: string | null;
     date_assessed?: string | null;
     date_claim_reported?: string | null;
     date_of_loss?: string | null;
     date_of_payment?: string | null;
-    Debtors_Letter_Of_Demand?: string | DirectusFiles | null;
+    Debtors_Letter_Of_Demand?: (string & DirectusFiles) | null;
     display_in_showroom?: boolean | null;
     Document_Center: string;
     email?: string | null;
     Email?: string | null;
-    Engine?: string | DirectusFiles | null;
+    Engine?: (string & DirectusFiles) | null;
     engine_number?: string | null;
     entry_date?: string | null;
     fax?: string | null;
     Fax?: string | null;
-    Front?: string | DirectusFiles | null;
+    Front?: (string & DirectusFiles) | null;
     Handling?: number | null;
     id: number;
     increment?: number | null;
     indicative_code?: string | null;
-    Inside_Back_1?: string | DirectusFiles | null;
-    Inside_Back_2?: string | DirectusFiles | null;
-    Inside_Front_1?: string | DirectusFiles | null;
-    Inside_Front_2?: string | DirectusFiles | null;
+    Inside_Back_1?: (string & DirectusFiles) | null;
+    Inside_Back_2?: (string & DirectusFiles) | null;
+    Inside_Front_1?: (string & DirectusFiles) | null;
+    Inside_Front_2?: (string & DirectusFiles) | null;
     instructed_date?: string | null;
     Insured?: string | null;
     insured_tel?: string | null;
     interior_checklist?: unknown | null;
-    Keys?: string | DirectusFiles | null;
-    Left_Side_Back?: string | DirectusFiles | null;
-    Left_Side_Front?: string | DirectusFiles | null;
-    License_Disk?: string | DirectusFiles | null;
-    Lots: any[] | Lots[];
+    Keys?: (string & DirectusFiles) | null;
+    Left_Side_Back?: (string & DirectusFiles) | null;
+    Left_Side_Front?: (string & DirectusFiles) | null;
+    License_Disk?: (string & DirectusFiles) | null;
+    Lots: any[] & Lots[];
     Make?: string | null;
     market_value?: number | null;
     maximum_price?: number | null;
     Mechanical_checklist?: unknown | null;
     method_of_payment?: string | null;
-    Mileage?: string | DirectusFiles | null;
+    Mileage?: (string & DirectusFiles) | null;
     minimum_price?: number | null;
     mm_code?: string | null;
     Model?: string | null;
     model_description?: string | null;
     Notes?: string | null;
-    Offer_to_Purchase?: string | DirectusFiles | null;
+    Offer_to_Purchase?: (string & DirectusFiles) | null;
     on_auction?: boolean | null;
     Original_Release_Fee?: number | null;
-    Original_Release_Fee_Invoice?: string | DirectusFiles | null;
+    Original_Release_Fee_Invoice?: (string & DirectusFiles) | null;
     Payable_To?: string | null;
     Postal_Code?: string | null;
     province?: string | null;
@@ -516,13 +517,13 @@ export type AssetSellers = {
     registered?: string | null;
     Release_Fee?: number | null;
     Release_Fee_Vat?: number | null;
-    Release_Note?: string | DirectusFiles | null;
+    Release_Note?: (string & DirectusFiles) | null;
     reserve_price?: number | null;
     retail_value?: number | null;
-    Right_Side_Back?: string | DirectusFiles | null;
-    Right_Side_Front?: string | DirectusFiles | null;
-    Roof?: string | DirectusFiles | null;
-    Salvage_Offer_Request?: string | DirectusFiles | null;
+    Right_Side_Back?: (string & DirectusFiles) | null;
+    Right_Side_Front?: (string & DirectusFiles) | null;
+    Roof?: (string & DirectusFiles) | null;
+    Salvage_Offer_Request?: (string & DirectusFiles) | null;
     settlement_value?: number | null;
     starting_price?: number | null;
     stock_number?: string | null;
@@ -542,7 +543,7 @@ export type AssetSellers = {
     Vehcile_Checklist_Details: string;
     Vehcile_Details: string;
     vehicle_category?: string | null;
-    vehicle_checklist?: string | DirectusFiles | null;
+    vehicle_checklist?: (string & DirectusFiles) | null;
     vehicle_checklist_notes?: string | null;
     Vehicle_Notes: string;
     Vehicle_Photos: string;
@@ -553,9 +554,9 @@ export type AssetSellers = {
   };
   
   export type VehiclesFiles = {
-    directus_files_id?: string | DirectusFiles | null;
+    directus_files_id?: (string & DirectusFiles) | null;
     id: number;
-    Vehicles_id?: number | Vehicles | null;
+    Vehicles_id?: (number & Vehicles) | null;
   };
   
   export type CustomDirectusTypes = {
