@@ -1,10 +1,10 @@
 
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authentication, createDirectus } from "@directus/sdk";
+import { authentication, createDirectus, readMe, rest } from "@directus/sdk";
 import { CustomDirectusTypes } from "@/app/types/schema";
 
-const directus = createDirectus<CustomDirectusTypes>(process.env.PUBLIC_API_URL as string).with(authentication());
+const directus = createDirectus<CustomDirectusTypes>(process.env.PUBLIC_API_URL as string).with(rest()).with(authentication());
 
 
 const handler = NextAuth({
@@ -20,20 +20,28 @@ const handler = NextAuth({
   
           try {
             // Attempt to authenticate using Directus SDK
-            const user = await directus
-              .login(email, password )
+            const token = await directus
+              .login(email, password ).then()
               
+            
   
             // If the user is found, return user data
-            if (user) {
+            if (token) {
               // return {
               //   id: user.id,
               //   email: user.email,
               //   name: user.first_name ? `${user.first_name} ${user.last_name}` : user.email,
               //   image: user.avatar || null,
               // };
-                console.log(user)
-              return user
+                const me = await directus.request(readMe({
+                    fields: ["id", "first_name", "last_name", "avatar", "email"]
+                }))
+              return {
+                id: me.id,
+                email : me.email,
+                name: me.first_name ? `${me.first_name} ${me.last_name}` : me.email,
+                image: me.avatar || null,
+              }
             }
   
             // If no user found or login fails
