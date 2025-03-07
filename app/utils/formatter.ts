@@ -1,4 +1,4 @@
-import type { Bids } from "../types/directus"; // Adjust the path as needed
+import type { Bids } from "../types/schema"; // Adjust the path as needed
 
 interface InumberToPrice {
   number: number;
