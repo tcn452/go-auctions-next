@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavSess from "./components/global/SessionProvider/NavSess";
+import Footer from "./components/global/Footer";
 
 
 const geistSans = Geist({
@@ -37,6 +38,7 @@ export default function RootLayout({
       </body>
     </html>
    </NavSess>
+    <Footer />
     
     </>
     

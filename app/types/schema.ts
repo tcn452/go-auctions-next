@@ -424,7 +424,7 @@ export type AssetSellers = {
     id: number;
     name?: string | null;
     status: string;
-    vehicles?: (number & Vehicles) | null;
+    vehicles: any[] & Vehicles[];
   };
   
   export type ProofOfPayments = {
@@ -494,7 +494,7 @@ export type AssetSellers = {
     Left_Side_Back?: (string & DirectusFiles) | null;
     Left_Side_Front?: (string & DirectusFiles) | null;
     License_Disk?: (string & DirectusFiles) | null;
-    Lots: any[] & Lots[];
+    lot?: (number & Lots) | null;
     Make?: string | null;
     market_value?: number | null;
     maximum_price?: number | null;

@@ -5,7 +5,7 @@ const Nav = () => {
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about-us" },
-    { name: "Upcoming", href: "/upcoming" },
+    { name: "Upcoming", href: "/auctions/upcoming" },
     { name: "Contact Us", href: "/contact" },
   ];
 
