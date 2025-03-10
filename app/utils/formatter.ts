@@ -23,9 +23,8 @@ export function getHighestBid(bids: Bids[], startingPrice: number): number {
   }
   
   // Assuming 'bid_price' and 'approved' are part of Bids, check for approved bids and get the highest bid
-  return bids
-    .filter(bid => bid.approved) // Filter only approved bids
-    .reduce((max, bid) => (bid.bid_price > max ? bid.bid_price : max), startingPrice);
+  return bids // Filter only approved bids
+    .reduce((max, bid) => (bid.bid_amount as number > max ? bid.bid_amount as number : max), startingPrice);
 }
 
 // Function to mask the bidder's name for privacy

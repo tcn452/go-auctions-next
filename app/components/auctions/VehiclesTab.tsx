@@ -1,9 +1,11 @@
 // components/VehiclesTab.tsx
 "use client";
 
+import { getAssetUrl } from "@/app/lib/directus";
 import { formatVehicleCategory } from "@/app/types/VehicleEnum";
 import { Vehicles } from "@/app/types/schema";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const VehiclesTab = ({ vehicles }: { vehicles: Vehicles[] }) => {
@@ -53,9 +55,9 @@ const rawCategories = [
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredVehicles.map((vehicle) => (
-          <div key={vehicle.Mileage} className="shadow-lg bg-white rounded-lg p-4">
+          <Link href={`/auctions/vehicles/${vehicle.id}`} key={vehicle.id} className="shadow-lg bg-white rounded-lg p-4">
             <Image
-              src={"https://goauctions.royalcreatives.live/assets/" + vehicle.auction_cover_image}
+              src={getAssetUrl(vehicle.auction_cover_image as string)}
               width={600}
               height={600}
               alt={`${vehicle.Year} ${vehicle.Model} `}
@@ -64,7 +66,7 @@ const rawCategories = [
             <h3 className="font-semibold text-lg">{`${vehicle.Year} ${vehicle.Model} - ${vehicle.model_description} `}</h3>
             <p>Mileage: {vehicle.Mileage} km</p>
             <p>Color: {vehicle.colour}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

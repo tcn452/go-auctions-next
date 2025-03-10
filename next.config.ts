@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: "goauctions.royalcreatives.live"
+        hostname: "goauction.weweb.co.za"
       }
     ]
   }

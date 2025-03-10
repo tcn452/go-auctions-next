@@ -24,18 +24,18 @@ export default function AuctionGallery({ gallery }: AuctionGalleryProps) {
     <div className="relative bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="carousel">
         <Image
-          src={getAssetUrl(gallery[currentIndex]?.directus_files_id)}
+          src={getAssetUrl(gallery[currentIndex]?.directus_files_id as string)}
           alt={`Slide ${currentIndex + 1}`}
-          width={400}
-          height={400}
-          className="object-cover w-full h-[25rem]"
+          width={800}
+          height={800}
+          className="object-cover w-full h-[35rem]"
         />
       </div>
       <div className="carousel-controls absolute bottom-0 flex justify-between items-center w-full">
-        <button className="bg-black text-white px-3 py-1" onClick={handlePrev}>
+        <button className="bg-green-800 text-white px-3 py-1" onClick={handlePrev}>
           &lt;
         </button>
-        <button className="bg-black text-white px-3 py-1" onClick={handleNext}>
+        <button className="bg-green-800 text-white px-3 py-1" onClick={handleNext}>
           &gt;
         </button>
       </div>

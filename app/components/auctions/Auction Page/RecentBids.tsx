@@ -8,7 +8,9 @@ interface AuctionBidsProps {
 }
 
 export default function AuctionBids({ bids }: AuctionBidsProps) {
- 
+
+  const sortedBids = bids.sort((a, b) => b.bid_amount - a.bid_amount);
+  console.log(sortedBids)
 
   return (
     <section className="bg-white p-6 shadow-lg rounded-lg">
@@ -24,7 +26,7 @@ export default function AuctionBids({ bids }: AuctionBidsProps) {
                 <p className="font-medium">{maskName(`${bid.user?.first_name} ${bid.user?.last_name}`)}</p>
                 <p className="text-sm text-gray-500">{new Date(bid.date_created as string).toLocaleString()}</p>
               </div>
-              <p className="font-bold">{numberToPrice({ number: bid.bid_amount as number, currency: "ZAR" })}</p>
+              <p className="font-bold">R {numberToPrice({ number: bid.bid_amount as number, currency: "ZAR" })}</p>
             </li>
           ))}
         </ul>
