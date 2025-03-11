@@ -1,18 +1,20 @@
 import LotDetails from "@/app/components/auctions/LotDetails";
 import VehiclesTab from "@/app/components/auctions/VehiclesTab";
 import { directus } from "@/app/lib/directus";
+import { isApprovedBidder } from "@/app/utils/approved";
 import { readItem } from "@directus/sdk";
+import { useSession } from "next-auth/react";
 
 
 const LotPage = async ({ params }: { params: { id: string } }) => {
   const lotId = await params.id;
-
+  
   // Fetch the Lot details including vehicles
   const lot = await directus.request(readItem("Lots", lotId, {
-    fields: ["*", "vehicles.*"],
+    fields: ["*", "vehicles.*", "allowed_bidders.*"],
   }))
 
-  console.log(lot)
+ 
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -23,7 +25,8 @@ const LotPage = async ({ params }: { params: { id: string } }) => {
           auctionDate={lot.auction_start}
           location={lot.auction_type}
           description={lot.description}
-         
+          allowedBidders={lot.allowed_bidders}
+          id={lot.id}
         />
 
         {/* Vehicles Tab Section */}

@@ -2,31 +2,35 @@
 
 import { placeBid } from "@/app/actions/placeBid";
 import { securedClient } from "@/app/lib/directus";
-import { Lots, Vehicles } from "@/app/types/schema";
+import { Lots, ProofOfPayments, Vehicles } from "@/app/types/schema";
+import { isApprovedBidder } from "@/app/utils/approved";
 import { numberToPrice, getAuctionStatus } from "@/app/utils/formatter";
 import { createItem, refresh } from "@directus/sdk";
 import {  useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import DragAndDropUpload from "../../forms/FileUpload";
+import Link from "next/link";
 
 interface AuctionDetailsProps {
   auction: Lots;
   vehicle: Vehicles;
   minimumBid: number;
+  allowedBidders : ProofOfPayments[]
 }
 
 interface BidFormValues {
   bid : number;
 }
 
-export default function AuctionDetails({ auction, vehicle, minimumBid }: AuctionDetailsProps) {
+export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBidders }: AuctionDetailsProps) {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
   const auctionStatus = getAuctionStatus(new Date(auction.auction_start as string), new Date(auction.auction_end as string));
 
   const {data: session, status, update } = useSession()
   const sortedBids = vehicle.bids.sort((a, b) => b.bid_amount - a.bid_amount);
 
-  console.log(session)
+
  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,41 +60,59 @@ export default function AuctionDetails({ auction, vehicle, minimumBid }: Auction
       <p className={`text-lg font-semibold ${auctionStatus === "Active" ? "text-green-600" : "text-red-600"}`}>
         Status: {auctionStatus}
       </p>
-      <div className="mt-4">
-      <form onSubmit={handleSubmit} className="mt-4">
-        <input type="hidden" name="auction_id" value={vehicle.id} />
-        <div className="relative mb-4">
-          <span className="absolute left-0 pl-3 flex items-center text-gray-500">R</span>
-          <input
-            type="number"
-            name="bid_price"
-            step={vehicle.increment as number}
-            min={sortedBids[0].bid_amount}
-            defaultValue={sortedBids[0].bid_amount}
-            className="border rounded p-2 pl-8 w-full"
-            placeholder={`Enter minimum bid: R${minimumBid}`}
-            required
-          />
+      {
+        status === "authenticated" && isApprovedBidder(session?.id, allowedBidders) &&  <div className="mt-4">
+        <form onSubmit={handleSubmit} className="mt-4">
+          <input type="hidden" name="auction_id" value={vehicle.id} />
+          <div className="relative mb-4">
+            <span className="absolute left-0 pl-3 flex items-center text-gray-500">R</span>
+            <input
+              type="number"
+              name="bid_price"
+              step={vehicle.increment as number}
+              min={sortedBids[0].bid_amount}
+              defaultValue={sortedBids[0].bid_amount}
+              className="border rounded p-2 pl-8 w-full"
+              placeholder={`Enter minimum bid: R${minimumBid}`}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-green-800 text-white px-4 py-2 rounded w-full hover:bg-green-700"
+          >
+            Place Bid
+          </button>
+        </form>
+        {statusMessage && (
+          <p
+            className={`mt-4 text-sm ${
+              statusMessage.includes("successfully") ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {statusMessage}
+          </p>
+        )}
         </div>
-
-        <button
-          type="submit"
-          className="bg-green-800 text-white px-4 py-2 rounded w-full hover:bg-green-700"
-        >
-          Place Bid
-        </button>
-      </form>
-      {statusMessage && (
-        <p
-          className={`mt-4 text-sm ${
-            statusMessage.includes("successfully") ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {statusMessage}
-        </p>
-      )}
-
-      </div>
+      }
+      {
+        status === "authenticated" && !isApprovedBidder(session?.id,allowedBidders) && <DragAndDropUpload userId={session?.id} lotId={auction.id as unknown as string} />
+      }
+      {
+              status === "unauthenticated" && (
+            <div className="mt-6 flex justify-center">
+              <div className="mt-6 flex justify-center">
+              <Link 
+                href="/login"
+                className="px-6 py-3 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:scale-105 transition-all duration-300 transform"
+              >
+                Please Log In or Register to participate in the auction
+              </Link>
+            </div>
+            </div>
+          )
+        }
+    
     </section>
   );
 }

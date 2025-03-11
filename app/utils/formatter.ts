@@ -73,3 +73,17 @@ export function getAuctionStatus(startDate: Date, endDate: Date): string {
     return 'Closed';
   }
 }
+
+
+export function groupHighestBids(bids : Bids[]) {
+  const groupedBids: any = [{}];
+
+  bids.forEach((bid : Bids) => {
+    const vehicleId = bid?.vehicle_id?.id as number
+
+    if (!groupedBids[vehicleId] || bid.bid_amount as number > groupedBids[vehicleId]?.bid_amount as unknown as number) {
+      groupedBids[vehicleId] = bid;
+    }
+  })
+  return Object.values(groupedBids);
+}
