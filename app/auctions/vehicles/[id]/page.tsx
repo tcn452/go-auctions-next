@@ -7,7 +7,7 @@ import { directus } from "@/app/lib/directus";
 import { Lots, ProofOfPayments, Vehicles } from "@/app/types/schema";
 import { readItem } from "@directus/sdk";
 interface AuctionPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function AuctionPage({ params }: AuctionPageProps) {

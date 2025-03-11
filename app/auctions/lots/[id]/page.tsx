@@ -1,13 +1,14 @@
 import LotDetails from "@/app/components/auctions/LotDetails";
 import VehiclesTab from "@/app/components/auctions/VehiclesTab";
 import { directus } from "@/app/lib/directus";
+import { Vehicles } from "@/app/types/schema";
 
 import { readItem } from "@directus/sdk";
 
 
 
-const LotPage = async ({ params }: { params: { id: string } }) => {
-  const lotId = await params.id;
+const LotPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const {id : lotId} = await params
   
   // Fetch the Lot details including vehicles
   const lot = await directus.request(readItem("Lots", lotId, {
@@ -28,9 +29,8 @@ const LotPage = async ({ params }: { params: { id: string } }) => {
           allowedBidders={lot.allowed_bidders}
           id={lot.id}
         />
-
         {/* Vehicles Tab Section */}
-        <VehiclesTab vehicles={lot.vehicles} />
+        <VehiclesTab vehicles={lot.vehicles as Vehicles[]} />
       </div>
     </div>
   );
