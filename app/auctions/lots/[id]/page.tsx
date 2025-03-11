@@ -1,9 +1,9 @@
 import LotDetails from "@/app/components/auctions/LotDetails";
 import VehiclesTab from "@/app/components/auctions/VehiclesTab";
 import { directus } from "@/app/lib/directus";
-import { isApprovedBidder } from "@/app/utils/approved";
+
 import { readItem } from "@directus/sdk";
-import { useSession } from "next-auth/react";
+
 
 
 const LotPage = async ({ params }: { params: { id: string } }) => {

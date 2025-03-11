@@ -26,14 +26,16 @@ export default function AuctionBids({ bids: initialBids }: AuctionBidsProps) {
     const fetchSubscription = async () => {
       try {
         await subscription.connect();
-        
         // Set up the subscription and receive live events
-        const { subscription: bidSubscription } = subscription.subscribe('Bids', {
-          event: 'create', 
+          await subscription.subscribe('Bids', {
+          event: 'create',
           query: {
-            fields: ['id', 'bid_amount', 'user.*', 'date_created']
+            fields: ['id', 'bid_amount', 'user', 'date_created']
           }
         });
+       
+ 
+
         
 
         subscription.onWebSocket('message', (data) => {
@@ -56,8 +58,7 @@ export default function AuctionBids({ bids: initialBids }: AuctionBidsProps) {
         
         // Clean up the subscription when component unmounts
         return () => {
-          bidSubscription.off('subscription');
-          bidSubscription.off('error');
+          
           subscription.disconnect();
         };
       } catch (error) {

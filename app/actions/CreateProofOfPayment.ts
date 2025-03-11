@@ -9,7 +9,7 @@ export async function createProofOfPayment(fileId : string, lotId : string) {
   const session = await getServerSession(options);
   console.log(fileId, lotId)
   
-  if (!session || !session.accessToken) {
+  if (!session || !session?.accessToken) {
     throw new Error("Unauthorized: No valid session");
   }
 
@@ -19,7 +19,7 @@ export async function createProofOfPayment(fileId : string, lotId : string) {
       method: "POST",
       credentials: "include",
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session?.accessToken}`,
         "Content-Type" : "application/json",
       },
        body : JSON.stringify({

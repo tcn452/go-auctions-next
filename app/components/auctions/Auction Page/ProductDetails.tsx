@@ -1,14 +1,14 @@
 "use client";
 
 import { placeBid } from "@/app/actions/placeBid";
-import { securedClient } from "@/app/lib/directus";
+
 import { Lots, ProofOfPayments, Vehicles } from "@/app/types/schema";
 import { isApprovedBidder, isPendingBidder } from "@/app/utils/approved";
 import { numberToPrice, getAuctionStatus } from "@/app/utils/formatter";
-import { createItem, refresh } from "@directus/sdk";
+
 import {  useSession } from "next-auth/react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+
 import DragAndDropUpload from "../../forms/FileUpload";
 import Link from "next/link";
 
@@ -19,15 +19,13 @@ interface AuctionDetailsProps {
   allowedBidders : ProofOfPayments[]
 }
 
-interface BidFormValues {
-  bid : number;
-}
+
 
 export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBidders }: AuctionDetailsProps) {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
   const auctionStatus = getAuctionStatus(new Date(auction.auction_start as string), new Date(auction.auction_end as string));
 
-  const {data: session, status, update } = useSession()
+  const {data: session, status } = useSession()
   const sortedBids = vehicle.bids.sort((a, b) => b.bid_amount - a.bid_amount);
 
 

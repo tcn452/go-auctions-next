@@ -5,7 +5,7 @@ import { uploadFilesToDirectus } from "@/app/actions/uploadProof";
 import React, { useState } from "react";
 
 
-const DragAndDropUpload = ({ userId, lotId }: { userId: string; lotId: string }) => {
+const DragAndDropUpload = ({ lotId }: { userId: string; lotId: string }) => {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);

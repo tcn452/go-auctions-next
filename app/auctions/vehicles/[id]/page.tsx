@@ -2,7 +2,7 @@
 import AuctionDetails from "@/app/components/auctions/Auction Page/ProductDetails";
 import AuctionBids from "@/app/components/auctions/Auction Page/RecentBids";
 import AuctionGallery from "@/app/components/auctions/Auction Page/ImageCarousel";
-import { getAuctionStatus, getHighestBid } from "@/app/utils/formatter";
+
 import { directus } from "@/app/lib/directus";
 import { Lots, ProofOfPayments, Vehicles } from "@/app/types/schema";
 import { readItem } from "@directus/sdk";

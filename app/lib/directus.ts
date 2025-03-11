@@ -1,4 +1,4 @@
-import { authentication, createDirectus, realtime, rest, staticToken} from "@directus/sdk";
+import { authentication, createDirectus, realtime, rest} from "@directus/sdk";
 import { CustomDirectusTypes } from "../types/schema";
 
 
