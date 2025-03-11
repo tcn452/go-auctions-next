@@ -60,8 +60,9 @@ export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBi
       <p className={`text-lg font-semibold ${auctionStatus === "Active" ? "text-green-600" : "text-red-600"}`}>
         Status: {auctionStatus}
       </p>
+
       {
-        status === "authenticated" && isApprovedBidder(session?.id, allowedBidders) &&  <div className="mt-4">
+        status === "authenticated" && isApprovedBidder(session?.id, allowedBidders) && auction.status === "progress"  && <div className="mt-4">
         <form onSubmit={handleSubmit} className="mt-4">
           <input type="hidden" name="auction_id" value={vehicle.id} />
           <div className="relative mb-4">
@@ -96,7 +97,7 @@ export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBi
         </div>
       }
        {
-          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && <DragAndDropUpload userId={session.id} lotId={id} />
+          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && auction.status != "completed" && <DragAndDropUpload userId={session.id} lotId={id} />
         }
         {
         status === "authenticated" && isPendingBidder(session?.id, allowedBidders) && (
@@ -107,7 +108,7 @@ export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBi
         )
       }
       {
-        status === "unauthenticated" && (
+        status === "unauthenticated" && auction.status != "completed" && (
       <div className="mt-6 flex justify-center">
          <div className="mt-6 flex justify-center">
         <Link 

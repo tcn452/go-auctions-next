@@ -28,10 +28,10 @@ const Product = await directus.request(readItem("Vehicles", auctionId, {
 }))
 
 
-
 const Auction = Product.lot
 
-console.log(Auction?.allowed_bidders)
+console.log(Auction)
+
 
   return (
     <main className="max-w-5xl mx-auto p-4">

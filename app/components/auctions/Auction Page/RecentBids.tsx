@@ -1,17 +1,73 @@
-"use client";
+"use client"
 
-import { Bids } from "@/app/types/schema";
-import { maskName, numberToPrice } from "@/app/utils/formatter";
+import { useEffect, useState } from 'react';
 
-interface AuctionBidsProps {
-  bids: Bids[];
+import { subscription } from '@/app/lib/directus';
+import { maskName, numberToPrice } from '@/app/utils/formatter';
+
+interface Bid {
+  id: string;
+  bid_amount: number;
+  date_created: string;
+  user?: {
+    first_name: string;
+    last_name: string;
+  };
 }
 
-export default function AuctionBids({ bids }: AuctionBidsProps) {
+interface AuctionBidsProps {
+  bids: Bid[];
+}
 
-  const sortedBids = bids.sort((a, b) => b.bid_amount - a.bid_amount);
-  console.log(sortedBids)
+export default function AuctionBids({ bids: initialBids }: AuctionBidsProps) {
+  const [bids, setBids] = useState<Bid[]>(initialBids);
+  
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      try {
+        await subscription.connect();
+        
+        // Set up the subscription and receive live events
+        const { subscription: bidSubscription } = subscription.subscribe('Bids', {
+          event: 'create', 
+          query: {
+            fields: ['id', 'bid_amount', 'user.*', 'date_created']
+          }
+        });
+        
 
+        subscription.onWebSocket('message', (data) => {
+          if (data.type == 'subscription' && data.event == 'create') {
+
+            
+            setBids(prevBids => {
+              const bidExists = prevBids.some(bid => bid.id === data.data[0].id)
+              if (!bidExists) {
+                const updatedBids = [data.data[0], ...prevBids]
+                return updatedBids.sort((a, b) => b.bid_amount - a.bid_amount);
+              }
+              return prevBids
+            })
+        }})
+
+        
+
+      
+        
+        // Clean up the subscription when component unmounts
+        return () => {
+          bidSubscription.off('subscription');
+          bidSubscription.off('error');
+          subscription.disconnect();
+        };
+      } catch (error) {
+        console.log('Connection Error', error);
+      }
+    };
+    
+    fetchSubscription();
+  }, [bids]);
+ 
   return (
     <section className="bg-white p-6 shadow-lg rounded-lg">
       <h3 className="text-xl font-bold mb-4">Recent Approved Bids</h3>

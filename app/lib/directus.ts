@@ -1,8 +1,10 @@
-import { authentication, createDirectus, rest} from "@directus/sdk";
+import { authentication, createDirectus, realtime, rest, staticToken} from "@directus/sdk";
 import { CustomDirectusTypes } from "../types/schema";
 
 
 export const directus = createDirectus<CustomDirectusTypes>(process.env.NEXT_PUBLIC_API_URL as string).with(rest())
+
+export const subscription = createDirectus<CustomDirectusTypes>(process.env.NEXT_PUBLIC_API_URL as string).with(realtime())
 
 export const getAssetUrl = (assetID : string) => {
     return `${process.env.NEXT_PUBLIC_API_URL}/assets/${assetID}`;

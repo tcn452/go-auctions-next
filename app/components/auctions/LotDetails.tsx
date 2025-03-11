@@ -38,7 +38,7 @@ const LotDetails = ({ title, auctionDate, location, description, allowedBidders,
       {
         status === "unauthenticated" && (
       <div className="mt-6 flex justify-center">
-         <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center">
         <Link 
           href="/login"
           className="px-6 py-3 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:scale-105 transition-all duration-300 transform"
@@ -49,7 +49,6 @@ const LotDetails = ({ title, auctionDate, location, description, allowedBidders,
       </div>
     )
   }
-       
       </section>
     );
   };
