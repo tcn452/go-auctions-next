@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type AssetSellers = {
   id: number;
   name?: string | null;

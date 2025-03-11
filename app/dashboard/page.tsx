@@ -1,10 +1,10 @@
 
-import { Bids } from "../types/schema";
+
 import { directus } from "../lib/directus";
 import { readItems } from "@directus/sdk";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
-import { groupHighestBids } from "../utils/formatter";
+
 import Table from "../components/dashboard/Table";
 
 
@@ -27,7 +27,7 @@ export default async function DashboardPage() {
         }
     }))
 
-  const highestBids = groupHighestBids(bids as Bids[])
+ 
         
   const headers = [
     { key: "name", label: "Item Bidded On" },

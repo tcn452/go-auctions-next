@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import type { NextAuthOptions, User } from 'next-auth';
 // import CredentialsProvider from 'next-auth/providers/credentials';
 // import { Session } from 'next-auth';
@@ -136,14 +137,14 @@
 
 
 
-import type { NextAuthOptions, User } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
 import { securedClient } from '@/app/lib/directus';
 import { readMe, refresh } from '@directus/sdk';
-import { signIn } from 'next-auth/react';
+
 
 interface CustomSession extends Session {
   accessToken?: string;
@@ -206,11 +207,11 @@ export const options: NextAuthOptions = {
         };
       }
 
-      if (Date.now() < token?.expires) {
+      if (Date.now() < (token?.expires as number)) {
         return token
       } else {
         if (!token.refreshToken) throw new TypeError("Missing refresh_token")
-            console.log(token.refreshToken)
+        console.log(token.refreshToken)
             try {
                 const refreshedTokens = await securedClient.request(refresh("json", token.refreshToken as string))
 

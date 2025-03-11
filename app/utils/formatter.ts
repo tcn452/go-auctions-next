@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Bids } from "../types/schema"; // Adjust the path as needed
 
 interface InumberToPrice {

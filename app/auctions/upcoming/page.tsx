@@ -2,19 +2,10 @@
 import { readItems } from "@directus/sdk";
 
 import { directus, getAssetUrl } from '@/app/lib/directus';
-import { Lots, Vehicles } from '@/app/types/schema';
+import { Lots } from '@/app/types/schema';
 import LotCard from "@/app/components/auctions/AuctionCard";
 
-interface Lot {
-  id: string;
-  title: string;
-  cover_image: string;
-  auction_start: string;
-  auction_end: string;
-  location: string;
-  vehicles: Vehicles;
-  views: number;
-}
+
 
 const UpcomingLots = async () => {
   // Fetching lots data server-side

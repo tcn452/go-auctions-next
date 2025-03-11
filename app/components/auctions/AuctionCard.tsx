@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import  Lots  from '../../types/schema';
+
 import Link from 'next/link';
 
 interface Props {

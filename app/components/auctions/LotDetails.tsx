@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { isApprovedBidder, isPendingBidder } from "@/app/utils/approved";

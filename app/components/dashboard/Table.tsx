@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 import Link from "next/link";
 import React from "react";
-import InteractiveRow from "./InteractiveRow";
+
 import { useSession } from "next-auth/react";
 import { deleteBid } from "@/app/actions/deleteBid";
 
@@ -21,30 +22,9 @@ interface TableProps {
 
 }
 
-const getStatusClass = (status: string) => {
-  switch (status) {
-    case "Active":
-      return "bg-green-100 text-green-800";
-    case "Ended":
-      return "bg-red-100 text-red-800";
-    case "Upcoming":
-      return "bg-yellow-100 text-yellow-800";
-    default:
-      return "";
-  }
-};
 
-const StatusPill: React.FC<{ status: string }> = ({ status }) => {
-  return (
-    <span
-      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(
-        status
-      )}`}
-    >
-      {status}
-    </span>
-  );
-};
+
+
 
 // Utility function to group bids by vehicle for the current user and return only the highest bid
 const getHighestBidsForUser = (bids: any[]) => {
@@ -68,7 +48,7 @@ const groupByLots = (bids: any[]) => {
   }, {});
   return Object.entries(lots).map(([lot, lotBids]) => ({
     lot: parseInt(lot),
-    highestBids: getHighestBidsForUser(lotBids),
+    highestBids: getHighestBidsForUser(lotBids as any[]),
   }));
 };
 
@@ -80,7 +60,7 @@ const Table: React.FC<TableProps> = ({ headers, rows }) => {
   
   return (
     <div>
-      {groupedLots.map(({ lot, highestBids }) => (
+      {groupedLots.map(({ lot, highestBids} : any) => (
         <div key={lot} className="mb-8">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">

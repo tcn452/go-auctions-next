@@ -1,7 +1,5 @@
 "use server"
 
-import { createItem, readMe, refresh } from "@directus/sdk"
-import { securedClient } from "../lib/directus"
 
 export async function placeBid(data: FormData, userId : string, vehicleId: string, refreshToken : string) {
     const bidPrice =parseFloat(data.get("bid_price") as string)
