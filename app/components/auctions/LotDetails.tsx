@@ -1,6 +1,6 @@
 "use client"
 
-import { isApprovedBidder } from "@/app/utils/approved";
+import { isApprovedBidder, isPendingBidder } from "@/app/utils/approved";
 import { useSession } from "next-auth/react";
 import DragAndDropUpload from "../forms/FileUpload";
 import Link from "next/link";
@@ -25,8 +25,16 @@ const LotDetails = ({ title, auctionDate, location, description, allowedBidders,
         </div>
         <p className="mt-4" dangerouslySetInnerHTML={{ __html: description }}></p>
         {
-          status === "authenticated" && isApprovedBidder(session?.id, allowedBidders) === false && <DragAndDropUpload userId={session.id} lotId={id} />
+          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && <DragAndDropUpload userId={session.id} lotId={id} />
         }
+        {
+        status === "authenticated" && isPendingBidder(session?.id, allowedBidders) && (
+          <div className="bg-green-800 text-white p-4 rounded-lg shadow-lg max-w-sm mx-auto mt-4">
+            <p className="text-center text-lg font-semibold">We are processing your proof of payment.</p>
+            <p className="text-center mt-2 text-sm">Please be patient while we verify your payment.</p>
+          </div>
+        )
+      }
       {
         status === "unauthenticated" && (
       <div className="mt-6 flex justify-center">

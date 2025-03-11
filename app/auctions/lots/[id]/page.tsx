@@ -14,7 +14,7 @@ const LotPage = async ({ params }: { params: { id: string } }) => {
     fields: ["*", "vehicles.*", "allowed_bidders.*"],
   }))
 
- 
+ console.log(lot)
 
   return (
     <div className="bg-gray-100 min-h-screen">

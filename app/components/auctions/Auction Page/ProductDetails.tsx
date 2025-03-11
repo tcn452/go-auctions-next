@@ -3,7 +3,7 @@
 import { placeBid } from "@/app/actions/placeBid";
 import { securedClient } from "@/app/lib/directus";
 import { Lots, ProofOfPayments, Vehicles } from "@/app/types/schema";
-import { isApprovedBidder } from "@/app/utils/approved";
+import { isApprovedBidder, isPendingBidder } from "@/app/utils/approved";
 import { numberToPrice, getAuctionStatus } from "@/app/utils/formatter";
 import { createItem, refresh } from "@directus/sdk";
 import {  useSession } from "next-auth/react";
@@ -95,23 +95,31 @@ export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBi
         )}
         </div>
       }
-      {
-        status === "authenticated" && !isApprovedBidder(session?.id,allowedBidders) && <DragAndDropUpload userId={session?.id} lotId={auction.id as unknown as string} />
+       {
+          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && <DragAndDropUpload userId={session.id} lotId={id} />
+        }
+        {
+        status === "authenticated" && isPendingBidder(session?.id, allowedBidders) && (
+          <div className="bg-green-800 text-white p-4 rounded-lg shadow-lg max-w-sm mx-auto mt-8">
+            <p className="text-center text-lg font-semibold">We are processing your proof of payment.</p>
+            <p className="text-center mt-2 text-sm">Please be patient while we verify your payment.</p>
+          </div>
+        )
       }
       {
-              status === "unauthenticated" && (
-            <div className="mt-6 flex justify-center">
-              <div className="mt-6 flex justify-center">
-              <Link 
-                href="/login"
-                className="px-6 py-3 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:scale-105 transition-all duration-300 transform"
-              >
-                Please Log In or Register to participate in the auction
-              </Link>
-            </div>
-            </div>
-          )
-        }
+        status === "unauthenticated" && (
+      <div className="mt-6 flex justify-center">
+         <div className="mt-6 flex justify-center">
+        <Link 
+          href="/login"
+          className="px-6 py-3 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:scale-105 transition-all duration-300 transform"
+        >
+          Please Log In or Register to participate in the auction
+        </Link>
+      </div>
+      </div>
+    )
+  }
     
     </section>
   );
