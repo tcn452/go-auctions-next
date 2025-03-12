@@ -11,8 +11,7 @@ interface AuctionPageProps {
 }
 
 export default async function AuctionPage({ params }: AuctionPageProps) {
-  const auctionId = await params.id;
-
+  const {id : auctionId} = await params
 //   const auction: Auction = await directus.items("auction").readOne(auctionId, {
 //     fields: ["*.*", "product_on_auction.gallery.*"],
 //   });
@@ -22,7 +21,10 @@ export default async function AuctionPage({ params }: AuctionPageProps) {
 //   });
 
 const Product = await directus.request(readItem("Vehicles", auctionId, {
+ 
     fields: [
+       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
         "*", "lot.*", "lot.allowed_bidders.*" ,"auction_images.*", "bids.*", "bids.user.*"
     ]
 }))
@@ -35,11 +37,16 @@ console.log(Auction)
 
   return (
     <main className="max-w-5xl mx-auto p-4">
-      {Product.auction_images.length > 0 && <AuctionGallery gallery={Product.auction_images} /> }
+      {Product.auction_images?.length > 0 && <AuctionGallery gallery={Product.auction_images.map(img => ({directus_files_id: img.directus_files_id}))} /> }
       
       <div className="grid md:grid-cols-3 gap-4 mt-6">
-        <AuctionDetails allowedBidders={Auction?.allowed_bidders as ProofOfPayments[]} auction={Auction as Lots} vehicle={Product as Vehicles} minimumBid={Product.bids[0].bid_amount} />
-        <AuctionBids bids={Product.bids} />
+        <AuctionDetails allowedBidders={Auction?.allowed_bidders as ProofOfPayments[]} auction={Auction as Lots} vehicle={Product as Vehicles} minimumBid={Product.bids?.[0]?.bid_amount} />
+        <AuctionBids bids={Product.bids?.map(bid => ({
+          id: bid.id,
+          bid_amount: bid.bid_amount,
+          date_created: bid.date_created,
+          user: bid.user
+        }))} />
       </div>
     </main>
   );

@@ -12,6 +12,8 @@ const LotPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   
   // Fetch the Lot details including vehicles
   const lot = await directus.request(readItem("Lots", lotId, {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     fields: ["*", "vehicles.*", "allowed_bidders.*"],
   }))
 

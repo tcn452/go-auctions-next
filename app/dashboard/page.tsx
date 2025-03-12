@@ -15,10 +15,15 @@ export default async function DashboardPage() {
     
     
     const bids = await directus.request(readItems("Bids", {
+         
         fields: [
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
             "*", "vehicle_id.*", "vehicle_id.lot.*"
         ],
         filter : {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
             "user": {
                 id : {
                     "_eq" : session?.id

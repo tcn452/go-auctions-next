@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { deleteBid } from "@/app/actions/deleteBid";
 import React from "react";
 
 interface InteractiveRowProps {

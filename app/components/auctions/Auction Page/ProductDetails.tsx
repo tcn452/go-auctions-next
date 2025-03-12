@@ -95,7 +95,7 @@ export default function AuctionDetails({ auction, vehicle, minimumBid, allowedBi
         </div>
       }
        {
-          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && auction.status != "completed" && <DragAndDropUpload userId={session.id} lotId={id} />
+          status === "authenticated" && !isApprovedBidder(session?.id, allowedBidders) &&!isPendingBidder(session?.id, allowedBidders) && auction.status != "completed" && <DragAndDropUpload userId={session.id} lotId={auction.id as unknown as string} />
         }
         {
         status === "authenticated" && isPendingBidder(session?.id, allowedBidders) && (
