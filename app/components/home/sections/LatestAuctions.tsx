@@ -1,11 +1,13 @@
 // app/lots/page.tsx
 
+
+
 import { getAssetUrl, directus } from "@/app/lib/directus";
 import { Lots } from "@/app/types/schema";
 import { readItems } from "@directus/sdk";
 import Image from "next/image";
 
-
+export const dynamic = 'force-dynamic'
 
 // Fetch lots data
 async function fetchLots() {
@@ -21,6 +23,8 @@ async function fetchLots() {
 
 export default async function LatestAuctions() {
   const lots = await fetchLots();
+
+  console.log(lots)
  
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
