@@ -1,5 +1,4 @@
-import { FaCar, FaLightbulb, FaThumbsUp } from 'react-icons/fa';
-import IconCard from '../Cards/IconCard'; // import the refactored IconCard component
+// import the refactored IconCard component
 
 const ApproachSection: React.FC = () => {
   return (
