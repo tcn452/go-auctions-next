@@ -6,7 +6,7 @@ import { Lots } from '@/app/types/schema';
 import LotCard from "@/app/components/auctions/AuctionCard";
 
 
-
+export const dynamic = 'force-dynamic'
 
 const UpcomingLots = async () => {
   // Fetching lots data server-side
