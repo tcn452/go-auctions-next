@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: "goauction.weweb.co.za"
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co'
       }
+
     ]
   }
 };

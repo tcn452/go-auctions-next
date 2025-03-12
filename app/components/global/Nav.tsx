@@ -6,8 +6,8 @@ const Nav = () => {
     { name: "Home", href: "/" },
     { name: "About", href: "/about-us" },
     { name: "Upcoming", href: "/auctions/upcoming" },
+    { name: "Rules of Auctions", href: "/rules-of-auction"},
     { name: "Contact Us", href: "/contact" },
-    { name: "Rules of Auctions", href: "/rules-of-auction"}
   ];
 
   return (
