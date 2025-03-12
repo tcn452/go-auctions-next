@@ -1,6 +1,7 @@
 // app/lots/page.tsx
 
 import { getAssetUrl, directus } from "@/app/lib/directus";
+import { Lots } from "@/app/types/schema";
 import { readItems } from "@directus/sdk";
 import Image from "next/image";
 
@@ -8,12 +9,13 @@ import Image from "next/image";
 
 // Fetch lots data
 async function fetchLots() {
-  const lots: Lots[] = await directus.request(readItems("Lots", {
-    fields: ["id", "name", "cover_image", "auction_start", "auction_end"],
+  const lots = await directus.request(readItems("Lots", {
+    fields: ["id", "name", "cover_image", "auction_start", "auction_end", "allowed_bidders", "status", "vehicles"],
     limit: 4,
   }));
-  return lots;
+  return lots as Lots[];
 }
+
 
 
 
