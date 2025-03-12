@@ -2,7 +2,7 @@
 "use client"
 import { useSession, signOut } from 'next-auth/react';
 import Nav from './Nav';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, JSX } from 'react';
 
 export default function Header(): JSX.Element {
     const { data: session } = useSession();
