@@ -7,6 +7,7 @@ import { options } from "../api/auth/[...nextauth]/options";
 
 import Table from "../components/dashboard/Table";
 
+export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
    
