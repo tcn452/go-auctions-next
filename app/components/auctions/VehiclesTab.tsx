@@ -11,6 +11,8 @@ import { useState } from "react";
 const VehiclesTab = ({ vehicles }: { vehicles: Vehicles[] }) => {
   const [activeCategory, setActiveCategory] = useState("All");
 
+  console.log(vehicles)
+
 // Group vehicles by category
 const rawCategories = [
     ...new Set(vehicles.map((v) => v.vehicle_category || "Uncategorized")),
@@ -58,14 +60,15 @@ const rawCategories = [
           <Link href={`/auctions/vehicles/${vehicle.id}`} key={vehicle.id} className="shadow-lg bg-white rounded-lg p-4">
             <Image
               src={getAssetUrl(vehicle.auction_cover_image as string)}
-              width={600}
-              height={600}
+              width={300}
+              height={300}
               alt={`${vehicle.Year} ${vehicle.Model} `}
-              className="w-full object-cover mb-2 rounded"
+              className="w-full mb-2 rounded object-cover"
             />
             <h3 className="font-semibold text-lg">{`${vehicle.Year} ${vehicle.Model} - ${vehicle.model_description} `}</h3>
-            <p>Mileage: {vehicle.Mileage} km</p>
-            <p>Color: {vehicle.colour}</p>
+            {vehicle.starting_price && <p>Starting Bid: {vehicle.starting_price}</p>}
+            {vehicle.Mileage && <p>Mileage: {vehicle.Mileage} km</p>}
+            {vehicle.colour && <p>Color: {vehicle.colour}</p>}
           </Link>
         ))}
       </div>

@@ -55,7 +55,7 @@ export default async function LatestAuctions() {
               <div className="p-4 space-y-2">
                 <h3 className="text-lg font-bold">{item.name}</h3>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{item.auction_start}</span>
+                  <span className="text-sm text-muted-foreground">{item.auction_start.toLocaleString()}</span>
                 </div>
               </div>
             </a>

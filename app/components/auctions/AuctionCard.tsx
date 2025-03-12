@@ -38,8 +38,8 @@ const LotCard = ({
         <h3 className="text-lg font-bold">{title}</h3>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-sm text-muted-foreground">Auction Start: {auctionStart}</span>
-            <span className="text-sm text-muted-foreground">Auction End: {auctionEnd}</span>
+            <span className="text-sm text-muted-foreground">Auction Start: {auctionStart.toLocaleString()}</span>
+            <span className="text-sm text-muted-foreground">Auction End: {auctionEnd.toLocaleString()}</span>
             <span className="text-sm text-muted-foreground capitalize">Location: {location}</span>
           </div>
           <span className="text-primary font-medium">{vehiclesCount} Vehicles</span>

@@ -169,7 +169,6 @@ export const options: NextAuthOptions = {
         const user = await securedClient.login(email, password, {
             mode : "json"
         });
-       
         if (!user) {
           throw new Error('Email address or password is invalid');
         }
@@ -211,11 +210,11 @@ export const options: NextAuthOptions = {
         return token
       } else {
         if (!token.refreshToken) throw new TypeError("Missing refresh_token")
-        console.log(token.refreshToken)
+       
             try {
                 const refreshedTokens = await securedClient.request(refresh("json", token.refreshToken as string))
 
-                console.log(refreshedTokens)
+               
 
                 if (!refreshedTokens) throw new Error("Token Refresh failed")
 
